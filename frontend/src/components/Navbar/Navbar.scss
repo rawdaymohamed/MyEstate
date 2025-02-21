@@ -1,0 +1,146 @@
+@import "../../responsive.scss";
+
+nav {
+  height: 100px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  color: #343a40; // Default text color for the navbar
+
+  .left,
+  .right {
+    display: flex;
+
+    align-items: center;
+
+    gap: 24px;
+  }
+
+  .left a,
+  .right a {
+    text-decoration: none;
+
+    transition: all 0.4s ease;
+
+    @include sm {
+      display: none;
+    }
+  }
+
+  .logo {
+    display: flex !important;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #000814;
+
+    .logo-text {
+      font-size: large;
+      @include sm {
+        display: flex;
+      }
+
+      @include md {
+        display: none;
+      }
+
+      @include lg {
+        display: flex;
+      }
+    }
+  }
+
+  .left {
+    flex: 3;
+
+    justify-content: flex-start;
+  }
+
+  .right {
+    flex: 2;
+
+    justify-content: flex-end;
+
+    height: 100%;
+
+    padding-right: 16px;
+
+    @include md {
+      background-color: #ffeeee;
+    }
+
+    @include lg {
+      background-color: #ffeeee;
+    }
+
+    a {
+      padding: 12px 24px;
+    }
+  }
+
+  .register {
+    background-color: #fca311;
+
+    color: #000814;
+
+    &:hover {
+      background-color: #ffc300;
+    }
+  }
+
+  a:not(.logo):hover {
+    color: #000;
+  }
+
+  .menuIcon {
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    padding: 5px;
+    border-radius: 50%;
+    display: none;
+    z-index: 999;
+    position: relative;
+    color: #000;
+    background-color: #ffeeee;
+    @include sm {
+      display: inline;
+    }
+  }
+
+  .mobile-menu {
+    position: absolute;
+    top: 0;
+    right: -50%;
+    background-color: black;
+    color: white;
+    height: 100vh;
+    width: 50%;
+    transition: all 1s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    gap: 16px;
+    z-index: 500;
+    display: none;
+    @include sm {
+      display: flex;
+      a {
+        display: initial;
+      }
+    }
+    &.open {
+      right: 0;
+    }
+  }
+}
