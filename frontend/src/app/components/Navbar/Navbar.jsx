@@ -1,43 +1,56 @@
-import Link from "next/link";
-import React from "react";
-import { RiBuilding2Fill } from "react-icons/ri";
+"use client";
 import { menuItems } from "@/app/lib/constants";
-const Navbar = () => {
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+
+const Nav = () => {
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsSticky(window.scrollY >= 90);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="h-[8vh] bg-[#0d1b2a] flex items-center shadow-3xl text-gray-200 sticky ">
-      <div className="flex items-center justify-between w-[90%] lg:w-[80%] xl:w-[70%] mx-auto">
-        <div className="flex gap-8 flex-3">
-          <Link href="/" className="flex items-center gap-3">
-            <RiBuilding2Fill className="size-6" />
-            <div className="font-bold">MyEstate</div>
+    <div
+      className={`fixed top-0 left-0 w-full h-[12vh] transition-all duration-200 
+      ${isSticky ? "shadow-xl bg-white z-50" : "bg-white z-50"}`}
+    >
+      <div className="flex items-center h-full">
+        <nav className="w-[90%] lg:w-[80%] xl:w-[70%] mx-auto flex justify-between items-center">
+          <Link href="/" className="flex items-center">
+            <span className="mr-0.5 -mt-1 font-extrabold text-gray-700 text-3xl ">
+              My
+            </span>
+            <div className="text-lg font-bold uppercase tracking-wider">
+              Estate
+            </div>
           </Link>
-
-          {menuItems.map((menuItem) => (
-            <Link
-              href={menuItem.url}
-              key={menuItem.id}
-              className="relative group w-fit"
-            >
-              {menuItem.label}
-              <span className="absolute block h-[1.5px] bg-amber-400 w-full scale-x-0 group-hover:scale-x-100 origin-right transition duration-200"></span>
-            </Link>
-          ))}
-        </div>
-
-        <div className="flex gap-3 flex-2 justify-end">
-          <Link href="/" className="px-4 py-2 hover:text-white">
-            Login
-          </Link>
+          <div className="flex space-x-6">
+            {menuItems.map((item) => (
+              <Link
+                href={item.url}
+                key={item.id}
+                className="relative text-gray-800 w-fit after:absolute after:left-0 after:bottom-0 after:h-[2px] after:bg-amber-400 after:w-full after:scale-x-0 after:transition-transform after:duration-200 hover:after:scale-x-100 hover:after:origin-left"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
           <Link
             href="/"
-            className="bg-amber-300 hover:bg-amber-400 transition duration-300 ease-in-out text-gray-900 px-4 py-2"
+            className="px-6 py-1.5 bg-amber-400 hover:bg-amber-500 transition-all duration-500 ease-in-out text-white rounded-full font-normal"
           >
-            Register
+            Join Now
           </Link>
-        </div>
+        </nav>
       </div>
-    </nav>
+    </div>
   );
 };
 
-export default Navbar;
+export default Nav;
