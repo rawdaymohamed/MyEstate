@@ -1,11 +1,12 @@
 import Image from "next/image";
 import React from "react";
+import Searchbar from "../Navbar/Searchbar/Searchbar";
 
 const MyHome = () => {
   return (
-    <div className="w-[90%] lg:w-[80%] xl:w-[70%] mx-auto flex h-screen">
+    <div className="w-[90%] lg:w-[80%] xl:w-[70%] mx-auto flex flex-col lg:flex-row h-screen">
       {/* Text container */}
-      <div className="flex-1 flex flex-col gap-4 p-10 items-center justify-center ">
+      <div className="flex-1 max-w-2xl mx-auto flex flex-col gap-6 p-6 md:p-10 justify-center">
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">
           Find Your Perfect Home, Effortlessly.
         </h1>
@@ -16,9 +17,15 @@ const MyHome = () => {
           to guide you every step of the way. Begin your search and unlock your
           future.
         </p>
+
+        {/* Prevent squeezing */}
+        <div className="w-full ">
+          <Searchbar />
+        </div>
       </div>
-      {/* Image container */}
-      <div className="flex-1 h-screen relative">
+
+      {/* Image container - Hidden on small & medium screens */}
+      <div className="hidden lg:block lg:flex-1 h-screen relative">
         <Image
           src="/bg3.jpg"
           fill
