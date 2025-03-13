@@ -1,24 +1,13 @@
 "use client";
 import { menuItems } from "@/app/lib/constants";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const Nav = () => {
-  const [isSticky, setIsSticky] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsSticky(window.scrollY >= 90);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <div
-      className={`fixed top-0 left-0 w-full h-[12vh] transition-all duration-200 
-      ${isSticky ? "shadow-xl bg-white z-50" : "bg-white z-50"}`}
+      className={`fixed top-0 left-0 w-full h-[10vh] transition-all duration-200 
+       shadow-xl bg-white z-50 `}
     >
       <div className="flex items-center h-full">
         <nav className="w-[90%] lg:w-[80%] xl:w-[70%] mx-auto flex justify-between items-center">
