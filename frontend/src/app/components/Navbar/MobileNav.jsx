@@ -17,7 +17,7 @@ const MobileNav = () => {
       </div>
 
       <div
-        className={`transition-all ease-in-out duration-500 absolute h-[100vh] bg-black text-white w-[70%] top-0 z-40 
+        className={`transition-all ease-in-out duration-500 absolute h-[100vh] bg-black text-white w-[50%] top-0 z-40 
         ${
           open
             ? "right-0 opacity-100 pointer-events-auto"
