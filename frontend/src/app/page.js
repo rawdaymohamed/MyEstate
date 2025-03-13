@@ -4,8 +4,9 @@ import ResponsiveNav from "./components/Navbar/ResponsiveNav";
 
 export default function Home() {
   return (
-    <div className="pt-[10vh]">
+    <div className="h-screen flex flex-col pt-[10vh]">
       <ResponsiveNav />
-      <MyHome /></div>
+      <MyHome />
+    </div>
   );
 }
