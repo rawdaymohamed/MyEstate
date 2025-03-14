@@ -1,11 +1,18 @@
 import Image from "next/image";
 import React from "react";
-import { FaBed, FaBath, FaMapMarkerAlt, FaTag } from "react-icons/fa";
+import {
+  FaBed,
+  FaBath,
+  FaMapMarkerAlt,
+  FaTag,
+  FaHeart,
+  FaCommentDots,
+} from "react-icons/fa";
 
 const Card = ({ item }) => {
   return (
     <div className="bg-white shadow-lg rounded-xl overflow-hidden w-full max-w-sm">
-      {/* Property Image */}
+      {/* Property Image with Save & Chat Buttons */}
       <div className="relative w-full h-56">
         <Image
           src={item.img}
@@ -14,6 +21,19 @@ const Card = ({ item }) => {
           alt={item.title}
           className="rounded-t-xl"
         />
+
+        {/* Floating Buttons */}
+        <div className="absolute top-3 right-3 flex gap-2">
+          {/* Save Button */}
+          <button className="bg-white p-2 rounded-full shadow-md hover:bg-gray-200 transition cursor-pointer">
+            <FaHeart className="text-gray-500" />
+          </button>
+
+          {/* Chat Button */}
+          <button className="bg-white p-2 rounded-full shadow-md hover:bg-gray-200 transition cursor-pointer">
+            <FaCommentDots className="text-gray-500" />
+          </button>
+        </div>
       </div>
 
       {/* Card Content */}
