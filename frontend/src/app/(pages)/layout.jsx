@@ -11,9 +11,7 @@ export default function RootLayout({ children }) {
   return (
     <div className="h-screen flex flex-col">
       <ResponsiveNav />
-      <div className="pt-[12vh] w-[98%] lg:w-[80%] xl:w-[70%] mx-auto">
-        {children}
-      </div>
+      <div className="">{children}</div>
     </div>
   );
 }

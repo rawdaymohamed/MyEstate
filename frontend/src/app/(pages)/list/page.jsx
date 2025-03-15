@@ -5,7 +5,7 @@ import React from "react";
 
 const Page = () => {
   return (
-    <div className="flex flex-col xl:flex-row gap-6 p-6">
+    <div className="pt-[12vh] w-[98%] lg:w-[80%] xl:w-[70%] mx-auto flex flex-col xl:flex-row gap-6 p-6">
       {/* List Container */}
       <div className="lg:flex-[3] bg-white shadow-md p-6 rounded-xl w-full overflow-y-scroll">
         <Filter />

@@ -16,10 +16,9 @@ const Card = ({ item }) => {
       <div className="relative w-full h-56">
         <Image
           src={item.img}
-          layout="fill"
-          objectFit="cover"
+          fill
           alt={item.title}
-          className="rounded-t-xl"
+          className="rounded-t-xl object-cover"
         />
 
         {/* Floating Buttons */}
