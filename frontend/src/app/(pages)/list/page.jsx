@@ -7,7 +7,7 @@ const Page = () => {
   return (
     <div className="pt-[12vh] w-[98%] lg:w-[80%] xl:w-[70%] mx-auto flex flex-col xl:flex-row gap-6 p-6">
       {/* List Container */}
-      <div className="lg:flex-[3] bg-white shadow-md p-6 rounded-xl w-full overflow-y-scroll">
+      <div className="lg:flex-[3] bg-white shadow-md p-6 rounded-xl w-full overflow-y-scroll h-[88vh]">
         <Filter />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           {listData.map((listItem) => (
