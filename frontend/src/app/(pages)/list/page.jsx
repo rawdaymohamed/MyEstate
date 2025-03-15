@@ -7,21 +7,9 @@ import { listData } from "@/app/lib/dummyData";
 import { locations } from "@/app/lib/location";
 import dynamic from "next/dynamic";
 const Page = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedLocationId, setSelectedLocationId] = useState(null);
+  const markerRefs = useRef({});
   const mapRef = useRef();
-  const handleLocationClick = (location) => {
-    setSelectedLocationId(location.id);
-    if (mapRef.current) {
-      mapRef.current.flyTo(location.coordinates, 15); // Fly to the selected location
-    }
-  };
-
-  const filteredLocations = locations.filter(
-    (location) =>
-      location.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      location.address.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const [selectedLocationId, setSelectedLocationId] = useState(null);
 
   const Map = useMemo(
     () =>
@@ -47,7 +35,7 @@ const Page = () => {
       {/* Map Container */}
       <div className="lg:flex-[2] h-full  rounded-xl flex items-center justify-center">
         <Map
-          locations={filteredLocations} // Pass filtered locations to the map
+          locations={listData}
           mapRef={mapRef}
           selectedLocationId={selectedLocationId}
         />

@@ -1,19 +1,18 @@
 import React from "react";
 
-const LocationCard = ({ location, onClick, isActive }) => {
+const LocationCard = ({ location }) => {
   return (
     <li
-      onClick={() => onClick(location)}
-      className={`p-3 bg-white rounded-lg shadow cursor-pointer hover:bg-gray-200 ${
-        isActive ? "border-l-4 border-blue-500" : ""
-      }`}
+      className={`p-3 bg-white rounded-lg shadow cursor-pointer hover:bg-gray-200 
+        
+      `}
     >
       <img
-        src={location.image}
-        alt={location.name}
+        src={location.img}
+        alt={location.title}
         className="w-full h-32 object-cover rounded-md mb-2"
       />
-      <h3 className="text-lg font-semibold">{location.name}</h3>
+      <h3 className="text-lg font-semibold">{location.title}</h3>
       <p className="text-sm text-gray-600">{location.address}</p>
     </li>
   );
