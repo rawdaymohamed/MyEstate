@@ -3,6 +3,7 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import "leaflet/dist/leaflet.css";
 import { useEffect, useRef } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import Pin from "../Pin/Pin";
 
 export default function CoworkingMap({
   locations,
@@ -30,17 +31,7 @@ export default function CoworkingMap({
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       {locations.map((location) => (
-        <Marker
-          key={location.id}
-          position={location.coordinates}
-          ref={(ref) => {
-            if (ref) {
-              markerRefs.current[location.id] = ref;
-            }
-          }}
-        >
-          <Popup>{location.name}</Popup>
-        </Marker>
+        <Pin location={location} />
       ))}
     </MapContainer>
   );
