@@ -1,42 +1,127 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
+import { MdArrowBackIosNew, MdArrowForwardIos, MdClose } from "react-icons/md";
 
 const Slider = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(images[0]);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Open full-screen mode
+  const openFullScreen = (index) => {
+    setCurrentIndex(index);
+    setSelectedImage(images[index]);
+    setIsFullScreen(true);
+  };
+
+  // Close full-screen mode when clicking outside the image and arrows
+  const closeFullScreen = (e) => {
+    if (e.target.id === "fullscreen-overlay") {
+      setIsFullScreen(false);
+    }
+  };
+
+  // Navigate images
+  const prevImage = () => {
+    const newIndex = (currentIndex - 1 + images.length) % images.length;
+    setCurrentIndex(newIndex);
+    setSelectedImage(images[newIndex]);
+  };
+
+  const nextImage = () => {
+    const newIndex = (currentIndex + 1) % images.length;
+    setCurrentIndex(newIndex);
+    setSelectedImage(images[newIndex]);
+  };
 
   return (
-    <div className="flex flex-col gap-4">
-      {/* Big Image */}
-      <div className="relative w-full h-[350px] lg:h-[400px] overflow-hidden rounded-lg">
-        <Image
-          src={selectedImage}
-          width={600}
-          height={600}
-          className="w-full h-full object-cover rounded-lg cursor-pointer"
-          alt="Selected"
-        />
-      </div>
-
-      {/* Thumbnail Images */}
-      <div className="flex gap-3 overflow-x-auto">
-        {images.map((image, i) => (
+    <div>
+      {/* Full-Screen Slider Modal */}
+      {isFullScreen && (
+        <div
+          id="fullscreen-overlay"
+          className="fixed inset-0 bg-black bg-opacity-90 flex justify-center items-center z-50"
+          onClick={closeFullScreen} // Only closes when clicking the overlay
+        >
+          {/* Close Button */}
           <button
-            key={i}
-            onClick={() => setSelectedImage(image)}
-            className={`relative w-[100px] h-[80px] rounded-md overflow-hidden border-2 ${
-              selectedImage === image ? "border-gray-800" : "border-transparent"
-            }`}
+            onClick={() => setIsFullScreen(false)}
+            className="absolute top-6 right-6 text-white text-3xl cursor-pointer"
+          >
+            <MdClose />
+          </button>
+
+          {/* Left Arrow */}
+          <button
+            onClick={prevImage}
+            className="absolute left-6 text-white text-4xl cursor-pointer"
+          >
+            <MdArrowBackIosNew />
+          </button>
+
+          {/* Full-Screen Image */}
+          <div
+            className="relative w-[90vw] max-w-[800px] h-[80vh] flex justify-center items-center"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the image
           >
             <Image
-              src={image}
-              width={100}
-              height={80}
-              className="w-full h-full object-cover transition-opacity duration-300 hover:opacity-80 cursor-pointer"
-              alt={`Thumbnail ${i + 1}`}
+              src={selectedImage}
+              width={1000}
+              height={800}
+              className="w-full h-full object-contain"
+              alt="Full-screen"
             />
+          </div>
+
+          {/* Right Arrow */}
+          <button
+            onClick={nextImage}
+            className="absolute right-6 text-white text-4xl cursor-pointer"
+          >
+            <MdArrowForwardIos />
           </button>
-        ))}
+        </div>
+      )}
+
+      {/* Normal Slider */}
+      <div className="flex flex-col gap-4">
+        {/* Big Image (Click to Open Full Screen) */}
+        <div
+          className="relative w-full h-[350px] lg:h-[400px] overflow-hidden rounded-lg cursor-pointer"
+          onClick={() => openFullScreen(images.indexOf(selectedImage))}
+        >
+          <Image
+            src={selectedImage}
+            width={600}
+            height={600}
+            className="w-full h-full object-cover rounded-lg"
+            alt="Selected"
+          />
+        </div>
+
+        {/* Thumbnail Images */}
+        <div className="flex gap-3 overflow-x-auto">
+          {images.map((image, i) => (
+            <button
+              key={i}
+              onClick={() => openFullScreen(i)}
+              className={`relative w-[100px] h-[80px] rounded-md overflow-hidden border-2 ${
+                selectedImage === image
+                  ? "border-gray-800"
+                  : "border-transparent"
+              }`}
+            >
+              <Image
+                src={image}
+                width={100}
+                height={80}
+                className="w-full h-full object-cover transition-opacity duration-300 hover:opacity-80 cursor-pointer"
+                alt={`Thumbnail ${i + 1}`}
+              />
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
