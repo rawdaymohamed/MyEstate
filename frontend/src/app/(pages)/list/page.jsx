@@ -14,7 +14,7 @@ const Page = () => {
   const Map = useMemo(
     () =>
       dynamic(() => import("@/app/components/Map/Map"), {
-        loading: () => <p>A map is loading</p>,
+        loading: () => <p>Map is loading</p>,
         ssr: false,
       }),
     []

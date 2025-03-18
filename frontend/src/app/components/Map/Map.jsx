@@ -5,11 +5,7 @@ import { useEffect, useRef } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import LocationCard from "../Location/Location";
 
-export default function CoworkingMap({
-  locations,
-  mapRef,
-  selectedLocationId,
-}) {
+export default function Map({ locations, mapRef, selectedLocationId }) {
   const markerRefs = useRef({});
 
   useEffect(() => {
