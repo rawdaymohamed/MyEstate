@@ -1,5 +1,16 @@
 import express from "express";
+
+import postRoutes from "./routes/post.route.js";
+import userRoutes from "./routes/user.route.js";
+import authRoutes from "./routes/auth.route.js";
+
 const app = express();
+app.use(express.json());
+
+app.use("/api/posts", postRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
+
 app.use("/api/test", (req, res) => {
     return res.send("It works");
 })
