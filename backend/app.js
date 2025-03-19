@@ -3,7 +3,7 @@ import express from "express";
 import postRoutes from "./routes/post.route.js";
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
-
+import "dotenv/config";
 const app = express();
 app.use(express.json());
 
