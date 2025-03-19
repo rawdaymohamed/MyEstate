@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "build": "npx prisma db push && npx prisma generate && next build"
   },
   "keywords": [],
   "author": "",
