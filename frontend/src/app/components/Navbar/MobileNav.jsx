@@ -1,12 +1,13 @@
 "use client";
-import { mobileMenuItems } from "@/app/lib/constants";
+import { mobileMenuItems, mobileMenuItemsLoggedIn } from "@/app/lib/constants";
 import Link from "next/link";
 import React, { useState } from "react";
 import { MdOutlineMenu } from "react-icons/md";
+import MobileUserProfile from "./MobileUserProfile";
 
-const MobileNav = () => {
+const MobileNav = ({ user }) => {
   const [open, setOpen] = useState(false);
-
+  const links = user ? mobileMenuItemsLoggedIn : mobileMenuItems;
   return (
     <div className="flex justify-end">
       {/* Menu Icon */}
@@ -27,11 +28,12 @@ const MobileNav = () => {
         }`}
       >
         <div className="flex flex-col gap-10 p-10 items-center justify-center h-full">
-          {mobileMenuItems.map((menuItem) => (
+          {links.map((menuItem) => (
             <Link key={menuItem.id} href={menuItem.url} className="text-lg">
               {menuItem.label}
             </Link>
           ))}
+          {user && <MobileUserProfile />}
         </div>
       </div>
     </div>

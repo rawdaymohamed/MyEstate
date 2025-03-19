@@ -4,14 +4,10 @@ import Image from "next/image";
 import Slider from "@/app/components/Slider/Slider";
 import { singlePostData, userData } from "@/app/lib/dummyData";
 import {
-  FaBath,
-  FaBed,
-  FaBroom,
   FaBus,
   FaCommentDots,
   FaHeart,
   FaLocationDot,
-  FaMoneyBillWave,
   FaSchool,
 } from "react-icons/fa6";
 import { IoMdRestaurant } from "react-icons/io";

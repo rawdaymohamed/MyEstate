@@ -1,9 +1,11 @@
 "use client";
 import { menuItems } from "@/app/lib/constants";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import UserProfile from "./UserProfile";
 
-const Nav = () => {
+const Nav = ({ user }) => {
   return (
     <div
       className={`fixed top-0 left-0 w-full h-[10vh] transition-all duration-200 
@@ -30,12 +32,16 @@ const Nav = () => {
               </Link>
             ))}
           </div>
-          <Link
-            href="/"
-            className="px-6 py-1.5 bg-amber-400 hover:bg-amber-500 transition-all duration-500 ease-in-out text-white rounded-full font-normal"
-          >
-            Join Now
-          </Link>
+          {user ? (
+            <UserProfile />
+          ) : (
+            <Link
+              href="/"
+              className="px-6 py-1.5 bg-amber-400 hover:bg-amber-500 transition-all duration-500 ease-in-out text-white rounded-full font-normal"
+            >
+              Join Now
+            </Link>
+          )}
         </nav>
       </div>
     </div>

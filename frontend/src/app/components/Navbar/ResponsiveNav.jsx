@@ -3,13 +3,14 @@ import Navbar from "./Navbar";
 import MobileNav from "./MobileNav";
 
 const ResponsiveNav = () => {
+  const user = true;
   return (
     <div>
       <div className="hidden lg:block">
-        <Navbar />
+        <Navbar user={user} />
       </div>
       <div className="block lg:hidden">
-        <MobileNav />
+        <MobileNav user={user} />
       </div>
     </div>
   );
