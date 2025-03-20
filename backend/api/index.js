@@ -6,15 +6,17 @@ import authRoutes from "../routes/auth.route.js";
 import cookieParser from 'cookie-parser';
 const port = process.env.PORT || 4000;
 dotenv.config()
+
 const app = express();
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }))
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }))
+
 app.use("/api/posts", postRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 
-app.use("/api/test", (req, res) => {
+app.get("/", (req, res) => {
     return res.send("It works");
 })
 app.use((_err, _req, res, _next) => {
