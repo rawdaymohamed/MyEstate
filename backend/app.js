@@ -21,7 +21,7 @@ app.use("/api/posts", postRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 
-app.get("/", (req, res) => {
+app.use("/", (req, res) => {
     return res.send("It works");
 })
 app.use((_err, _req, res, _next) => {
