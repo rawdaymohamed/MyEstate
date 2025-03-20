@@ -1,7 +1,13 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 
 const Login = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    console.log(formData);
+  };
   return (
     <div className="w-[90%] lg:w-[80%] xl:w-[70%] mx-auto flex flex-col lg:flex-row h-screen">
       {/* Login Form Container */}
@@ -11,14 +17,16 @@ const Login = () => {
         </h1>
         <p className="text-gray-600 text-center">Login to continue</p>
 
-        <form className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <input
-            type="email"
-            placeholder="Email"
+            type="text"
+            name="username"
+            placeholder="Username"
             className="w-full md:flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:border-amber-400 focus:ring-0 outline-none transition-all"
           />
           <input
             type="password"
+            name="password"
             placeholder="Password"
             className="w-full md:flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:border-amber-400 focus:ring-0 outline-none transition-all"
           />
