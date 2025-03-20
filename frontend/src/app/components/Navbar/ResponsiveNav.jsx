@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import MobileNav from "./MobileNav";
 
 const ResponsiveNav = () => {
-  const user = true;
+  const user = false;
   return (
     <div>
       <div className="hidden lg:block">
