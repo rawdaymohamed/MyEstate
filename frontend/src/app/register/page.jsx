@@ -15,11 +15,14 @@ const RegisterPage = () => {
     const email = formData.get("email");
     const password = formData.get("password");
     try {
-      const res = await axios.post("http://localhost:4000/api/auth/register", {
-        username,
-        email,
-        password,
-      });
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`,
+        {
+          username,
+          email,
+          password,
+        }
+      );
       router.push("/login");
     } catch (error) {
       setError(
