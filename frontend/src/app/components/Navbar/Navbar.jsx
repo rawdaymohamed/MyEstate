@@ -36,7 +36,7 @@ const Nav = ({ user }) => {
             <UserProfile />
           ) : (
             <Link
-              href="/"
+              href="/register"
               className="px-6 py-1.5 bg-amber-400 hover:bg-amber-500 transition-all duration-500 ease-in-out text-white rounded-full font-normal"
             >
               Join Now
