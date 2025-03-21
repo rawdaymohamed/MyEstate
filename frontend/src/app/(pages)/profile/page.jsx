@@ -39,6 +39,9 @@ const Page = () => {
                 <span className="font-semibold text-gray-700">Email:</span>
                 <span className="text-gray-600">test1@test.com</span>
               </div>
+              <button className="w-fit cursor-pointer bg-red-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-600 transition-colors">
+                Logout
+              </button>
             </div>
           </div>
         </div>
