@@ -1,13 +1,37 @@
 "use client";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
 
+import axios from "axios";
 const Login = () => {
-  const handleSubmit = (e) => {
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData(e.target);
-    console.log(formData);
+    const username = formData.get("username");
+    const password = formData.get("password");
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
+        {
+          username,
+          password,
+        }
+      );
+      router.push("/");
+    } catch (error) {
+      setError(
+        error.response?.data?.message || "Login failed. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <div className="w-[90%] lg:w-[80%] xl:w-[70%] mx-auto flex flex-col lg:flex-row h-screen">
@@ -17,21 +41,28 @@ const Login = () => {
           Welcome Back
         </h1>
         <p className="text-gray-600 text-center">Login to continue</p>
-
+        {error && (
+          <span className="text-red-500 text-sm text-center">{error}</span>
+        )}
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <input
             type="text"
             name="username"
             placeholder="Username"
+            required
             className="w-full md:flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:border-amber-400 focus:ring-0 outline-none transition-all"
           />
           <input
             type="password"
             name="password"
+            required
             placeholder="Password"
             className="w-full md:flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:border-amber-400 focus:ring-0 outline-none transition-all"
           />
-          <button className="w-full p-3 bg-yellow-400 text-white rounded-md hover:bg-yellow-500 transition cursor-pointer">
+          <button
+            disabled={loading}
+            className="w-full p-3 bg-yellow-400 text-white rounded-md hover:bg-yellow-500 transition cursor-pointer"
+          >
             Login
           </button>
         </form>
