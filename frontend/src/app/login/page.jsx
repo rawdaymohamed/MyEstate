@@ -22,6 +22,7 @@ const Login = () => {
         password,
       });
       setError("");
+      localStorage.setItem("user", JSON.stringify(res.data.data));
       router.push("/");
     } catch (error) {
       setError(
