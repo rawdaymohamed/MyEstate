@@ -34,6 +34,7 @@ export const login = async (req, res) => {
         // Generate a cookie tooken
         const age = 1000 * 60 * 60 * 24 * 7; // 7 days
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: age });
+        const { password: password_, ...userInfo } = user;
         return res.cookie(
             "token",
             token, {
@@ -41,7 +42,8 @@ export const login = async (req, res) => {
             maxAge: age,
             // secure: true, // uncommment production
 
-        }).status(200).json({ message: "Login successful" })
+        }).status(200).json({ message: "Login successful", data: userInfo });
+
     } catch (err) {
         console.log(err)
         return res.status(500).json({ message: "Failed to login" })
