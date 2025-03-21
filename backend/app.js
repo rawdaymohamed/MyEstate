@@ -30,4 +30,4 @@ app.use((_err, _req, res, _next) => {
         message: 'Something went wrong',
     });
 });
-app.listen(port, () => console.log("Server running on port" + port))
+app.listen(port, () => console.log("Server running on port  " + port))
