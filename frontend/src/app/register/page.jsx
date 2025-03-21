@@ -21,6 +21,7 @@ const RegisterPage = () => {
         email,
         password,
       });
+      setError("");
       router.push("/login");
     } catch (error) {
       setError(

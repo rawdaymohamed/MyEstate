@@ -21,6 +21,7 @@ const Login = () => {
         username,
         password,
       });
+      setError("");
       router.push("/");
     } catch (error) {
       setError(
