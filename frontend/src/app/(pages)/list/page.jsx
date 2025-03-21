@@ -4,7 +4,6 @@ import Card from "@/app/components/Card/Card";
 import Filter from "@/app/components/Filter/Filter";
 // import Map from "@/app/components/Map/Map";
 import { listData } from "@/app/lib/dummyData";
-import { locations } from "@/app/lib/location";
 import dynamic from "next/dynamic";
 const Page = () => {
   const markerRefs = useRef({});

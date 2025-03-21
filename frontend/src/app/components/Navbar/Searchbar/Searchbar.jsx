@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 const Searchbar = () => {
+  const router = useRouter();
   const buttons = ["rent", "buy"];
   const [query, setQuery] = useState({
     type: "buy",
@@ -14,7 +16,11 @@ const Searchbar = () => {
   const switchType = (type) => {
     setQuery((prev) => ({ ...prev, type: type }));
   };
-
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const queryString = new URLSearchParams(query).toString();
+    router.push(`/list?${queryString}`);
+  };
   return (
     <div className="flex flex-col gap-5 bg-white shadow-md p-6 rounded-xl w-full max-w-3xl mx-auto">
       {/* Toggle Buttons */}
@@ -58,7 +64,10 @@ const Searchbar = () => {
           placeholder="Max Price"
           className="w-full md:w-1/4 px-4 py-2 border border-gray-300 rounded-lg focus:border-amber-400 focus:ring-0 outline-none transition-all"
         />
-        <button className="cursor-pointer bg-amber-400 text-white px-6 py-2 rounded-lg flex items-center justify-center hover:shadow-lg transition-all">
+        <button
+          onClick={handleSearch}
+          className="cursor-pointer bg-amber-400 text-white px-6 py-2 rounded-lg flex items-center justify-center hover:shadow-lg transition-all"
+        >
           <FaSearch />
         </button>
       </form>
