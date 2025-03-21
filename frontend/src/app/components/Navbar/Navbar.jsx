@@ -1,6 +1,5 @@
 "use client";
 import { menuItems } from "@/app/lib/constants";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import UserProfile from "./UserProfile";
@@ -33,7 +32,7 @@ const Nav = ({ user }) => {
             ))}
           </div>
           {user ? (
-            <UserProfile />
+            <UserProfile user={user} />
           ) : (
             <Link
               href="/register"

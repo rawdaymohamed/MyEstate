@@ -1,15 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { apiRequest } from "../lib/apiRequest";
+import { AuthContext } from "../context/AuthContext";
 const Login = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
+  let { setCurrentUser } = useContext(AuthContext);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -21,8 +22,8 @@ const Login = () => {
         username,
         password,
       });
+      setCurrentUser(res.data.data);
       setError("");
-      localStorage.setItem("user", JSON.stringify(res.data.data));
       router.push("/");
     } catch (error) {
       setError(
