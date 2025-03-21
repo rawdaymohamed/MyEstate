@@ -1,17 +1,21 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FiUser, FiLogOut } from "react-icons/fi";
 import { apiRequest } from "@/app/lib/apiRequest";
-
+import { AuthContext } from "@/app/context/AuthContext";
+import { useRouter } from "next/navigation";
 const UserProfile = ({ user }) => {
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
 
+  const router = useRouter();
+  const dropdownRef = useRef(null);
   const handleLogout = async (e) => {
-    const res = await apiRequest.post("/auth/logout");
-    localStorage.removeItem("user");
+    await apiRequest.post("/auth/logout");
+    setCurrentUser(null);
+    router.push("/");
   };
   // Close dropdown when clicking outside
   useEffect(() => {

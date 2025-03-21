@@ -3,14 +3,16 @@ import Chat from "@/app/components/Chat/Chat";
 import List from "@/app/components/List/List";
 import { apiRequest } from "@/app/lib/apiRequest";
 import Image from "next/image";
-import React from "react";
+import React, { useContext } from "react";
 import { useRouter } from "next/navigation";
+import { AuthContext } from "@/app/context/AuthContext";
 
 const Page = () => {
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const router = useRouter();
   const handleLogout = async (e) => {
-    const res = await apiRequest.post("/auth/logout");
-    localStorage.removeItem("user");
+    await apiRequest.post("/auth/logout");
+    setCurrentUser(null);
     router.push("/");
   };
   return (
@@ -32,7 +34,7 @@ const Page = () => {
               <div className="flex items-center gap-4">
                 <span className="font-semibold text-gray-700">Avatar:</span>
                 <Image
-                  src="/avatar.jpg"
+                  src={`${currentUser?.avatar || "/noavatar.jpg"}`}
                   width={90}
                   height={90}
                   className="w-16 h-16 object-cover rounded-full border-4 border-gray-300 shadow-md"
@@ -41,11 +43,11 @@ const Page = () => {
               </div>
               <div className="flex items-center gap-4">
                 <span className="font-semibold text-gray-700">Username:</span>
-                <span className="text-gray-600">rawdayasser</span>
+                <span className="text-gray-600">{currentUser?.username}</span>
               </div>
               <div className="flex items-center gap-4">
                 <span className="font-semibold text-gray-700">Email:</span>
-                <span className="text-gray-600">test1@test.com</span>
+                <span className="text-gray-600">{currentUser?.email}</span>
               </div>
               <button
                 onClick={(e) => handleLogout(e)}
