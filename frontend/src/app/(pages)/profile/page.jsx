@@ -1,10 +1,18 @@
 "use client";
 import Chat from "@/app/components/Chat/Chat";
 import List from "@/app/components/List/List";
+import { apiRequest } from "@/app/lib/apiRequest";
 import Image from "next/image";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
+  const router = useRouter();
+  const handleLogout = async (e) => {
+    const res = await apiRequest.post("/auth/logout");
+    localStorage.removeItem("user");
+    router.push("/");
+  };
   return (
     <div className="pt-[5vh] md:pt-[12vh] w-[95%] lg:w-[80%] xl:w-[70%] mx-auto grid grid-cols-1 xl:grid-cols-5 h-screen">
       {/* Details Section */}
@@ -39,7 +47,10 @@ const Page = () => {
                 <span className="font-semibold text-gray-700">Email:</span>
                 <span className="text-gray-600">test1@test.com</span>
               </div>
-              <button className="w-fit cursor-pointer bg-red-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-600 transition-colors">
+              <button
+                onClick={(e) => handleLogout(e)}
+                className="w-fit cursor-pointer bg-red-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-600 transition-colors"
+              >
                 Logout
               </button>
             </div>
