@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import axios from "axios";
+import { apiRequest } from "../lib/apiRequest";
 const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -17,13 +17,10 @@ const Login = () => {
     const username = formData.get("username");
     const password = formData.get("password");
     try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
-        {
-          username,
-          password,
-        }
-      );
+      const res = await apiRequest.post("/auth/login", {
+        username,
+        password,
+      });
       router.push("/");
     } catch (error) {
       setError(

@@ -1,9 +1,9 @@
 "use client";
-import axios from "axios";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { apiRequest } from "../lib/apiRequest";
 
 const RegisterPage = () => {
   const [error, setError] = useState("");
@@ -16,14 +16,11 @@ const RegisterPage = () => {
     const email = formData.get("email");
     const password = formData.get("password");
     try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`,
-        {
-          username,
-          email,
-          password,
-        }
-      );
+      const res = await apiRequest.post("/auth/register", {
+        username,
+        email,
+        password,
+      });
       router.push("/login");
     } catch (error) {
       setError(
