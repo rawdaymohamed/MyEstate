@@ -7,12 +7,12 @@ import { useRouter } from "next/navigation";
 import { apiRequest } from "../lib/apiRequest";
 const Login = () => {
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setIsLoading(true);
     const formData = new FormData(e.target);
     const username = formData.get("username");
     const password = formData.get("password");
@@ -27,7 +27,7 @@ const Login = () => {
         error.response?.data?.message || "Login failed. Please try again."
       );
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
   return (
@@ -57,7 +57,7 @@ const Login = () => {
             className="w-full md:flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:border-amber-400 focus:ring-0 outline-none transition-all"
           />
           <button
-            disabled={loading}
+            disabled={isLoading}
             className="w-full p-3 bg-yellow-400 text-white rounded-md hover:bg-yellow-500 transition cursor-pointer"
           >
             Login
