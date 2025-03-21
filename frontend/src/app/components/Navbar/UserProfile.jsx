@@ -9,9 +9,9 @@ import { useRouter } from "next/navigation";
 const UserProfile = ({ user }) => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
-
   const router = useRouter();
   const dropdownRef = useRef(null);
+
   const handleLogout = async (e) => {
     await apiRequest.post("/auth/logout");
     setCurrentUser(null);
@@ -28,7 +28,9 @@ const UserProfile = ({ user }) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
+  useEffect(() => {
+    if (!currentUser) router.push("/login");
+  }, [currentUser, router]);
   return (
     <div className="relative flex flex-col items-center" ref={dropdownRef}>
       {/* User Profile Button (Click to Toggle Dropdown) */}
@@ -40,7 +42,7 @@ const UserProfile = ({ user }) => {
           {user?.username}
         </span> */}
         <Image
-          src={`${user?.avatar || "/noavatar.jpg"}`}
+          src={`${user.avatar || "/noavatar.jpg"}`}
           width={50}
           height={50}
           className="h-12 w-12 rounded-full object-cover border-2 border-amber-400"

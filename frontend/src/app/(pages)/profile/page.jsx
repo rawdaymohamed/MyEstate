@@ -3,7 +3,7 @@ import Chat from "@/app/components/Chat/Chat";
 import List from "@/app/components/List/List";
 import { apiRequest } from "@/app/lib/apiRequest";
 import Image from "next/image";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/app/context/AuthContext";
 
@@ -15,6 +15,14 @@ const Page = () => {
     setCurrentUser(null);
     router.push("/");
   };
+  // Redirect to login if no user
+  useEffect(() => {
+    console.log("Current user:", currentUser);
+    if (currentUser === null) {
+      router.push("/login");
+    }
+  }, [currentUser, router]);
+  if (!currentUser) return null;
   return (
     <div className="pt-[5vh] md:pt-[12vh] w-[95%] lg:w-[80%] xl:w-[70%] mx-auto grid grid-cols-1 xl:grid-cols-5 h-screen">
       {/* Details Section */}
