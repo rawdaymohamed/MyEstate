@@ -3,6 +3,7 @@ import axios from "axios";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const RegisterPage = () => {
   const [error, setError] = useState("");
@@ -67,9 +68,9 @@ const RegisterPage = () => {
 
         <p className="text-sm text-center text-gray-500">
           Already have an account?{" "}
-          <a href="/login" className="text-yellow-500">
+          <Link href="/login" className="text-yellow-500">
             Login
-          </a>
+          </Link>
         </p>
       </div>
 

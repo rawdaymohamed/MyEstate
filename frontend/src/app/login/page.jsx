@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Login = () => {
@@ -37,9 +38,9 @@ const Login = () => {
 
         <p className="text-sm text-center text-gray-500">
           Don't have an account?{" "}
-          <a href="/register" className="text-yellow-500">
+          <Link href="/register" className="text-yellow-500">
             Sign up
-          </a>
+          </Link>
         </p>
       </div>
 
