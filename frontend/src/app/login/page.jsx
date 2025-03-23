@@ -22,7 +22,7 @@ const Login = () => {
         username,
         password,
       });
-      setCurrentUser(res.data.data);
+      setCurrentUser(res.data?.data);
       setError("");
       router.push("/");
     } catch (error) {
