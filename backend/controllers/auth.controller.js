@@ -39,8 +39,8 @@ export const login = async (req, res) => {
             "token",
             token, {
             httpOnly: true,
-            maxAge: age,
-            secure: true, // uncommment production
+            secure: true,
+            sameSite: "None",
 
         }).status(200).json({ message: "Login successful", data: userInfo });
 
