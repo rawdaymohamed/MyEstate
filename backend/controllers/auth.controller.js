@@ -39,10 +39,9 @@ export const login = async (req, res) => {
             "token",
             token, {
             httpOnly: true,
-            secure: true,
+            secure: process.env.NODE_ENV === "production",
             sameSite: "None",
             maxAge: age,
-
         }).status(200).json({ message: "Login successful", data: userInfo });
 
     } catch (err) {
