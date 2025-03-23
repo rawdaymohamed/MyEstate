@@ -6,6 +6,7 @@ import Image from "next/image";
 import React, { useContext } from "react";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/app/context/AuthContext";
+import Link from "next/link";
 
 const Page = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
@@ -15,14 +16,6 @@ const Page = () => {
     setCurrentUser(null);
     router.push("/");
   };
-  // // Redirect to login if no user
-  // useEffect(() => {
-  //   console.log("Current user:", currentUser);
-  //   if (currentUser === null) {
-  //     router.push("/login");
-  //   }
-  // }, [currentUser, router]);
-  // if (!currentUser) return null;
   return (
     <div className="pt-[5vh] md:pt-[12vh] w-[95%] lg:w-[80%] xl:w-[70%] mx-auto grid grid-cols-1 xl:grid-cols-5 h-screen">
       {/* Details Section */}
@@ -32,9 +25,12 @@ const Page = () => {
             <h2 className="text-2xl md:text-4xl font-bold text-gray-900">
               User Information
             </h2>
-            <button className="cursor-pointer bg-gradient-to-r from-amber-500 to-amber-600 text-white px-5 py-2 md:px-6 md:py-3 rounded-lg shadow-md hover:scale-105 transition-transform">
+            <Link
+              href="/profile/edit"
+              className="cursor-pointer bg-gradient-to-r from-amber-500 to-amber-600 text-white px-5 py-2 md:px-6 md:py-3 rounded-lg shadow-md hover:scale-105 transition-transform"
+            >
               Update Profile
-            </button>
+            </Link>
           </div>
 
           <div className="bg-gray-50 p-4 md:p-6 rounded-xl shadow-md border border-gray-100">
