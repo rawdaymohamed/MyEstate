@@ -33,16 +33,19 @@ export const login = async (req, res) => {
 
         // Generate a cookie tooken
         const age = 1000 * 60 * 60 * 24 * 7; // 7 days
+
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: age });
         const { password: password_, ...userInfo } = user;
-        return res.cookie(
+        res.cookie(
             "token",
             token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "None",
             maxAge: age,
-        }).status(200).json({ message: "Login successful", data: userInfo });
+        }
+        );
+        return res.status(200).json({ message: "Login successful", data: userInfo });
 
     } catch (err) {
         console.log(err)
