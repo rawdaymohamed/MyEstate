@@ -11,14 +11,7 @@ dotenv.config()
 const app = express();
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }))
 app.use(express.json());
-app.use(
-    cookieSession({
-        signed: false,
-        secure: true, // false for localhost
-        sameSite: 'none' // 'lax' for localhost
-    })
-);
-app.set("trust proxy", 1);
+app.use(cookieParser());
 app.use("/api/posts", postRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
