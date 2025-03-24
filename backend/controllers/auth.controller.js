@@ -42,7 +42,8 @@ export const login = async (req, res) => {
             token, {
             httpOnly: true,
             secure: isProduction,
-            sameSite: isProduction ? "none" : "lax",
+            sameSite: isProduction ? "None" : "Lax",
+            partitioned: true,
             maxAge: age,
         }
         );
