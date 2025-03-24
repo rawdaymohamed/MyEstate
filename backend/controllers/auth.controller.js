@@ -37,7 +37,8 @@ export const login = async (req, res) => {
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: age });
         const { password: password_, ...userInfo } = user;
         const isProduction = process.env.NODE_ENV === "production";
-        res.cookie(
+
+        return res.cookie(
             "token",
             token, {
             httpOnly: true,
@@ -45,11 +46,10 @@ export const login = async (req, res) => {
             sameSite: isProduction ? "none" : "lax",
             path: "/",
             // domain: isProduction ? '.vercel.app' : ".localhost",
-            // partitioned: true,
+            partitioned: isProduction,
             maxAge: age,
         }
-        );
-        return res.status(200).json({ message: "Login successful", data: userInfo });
+        ).json({ message: "Login successful", data: userInfo });
 
     } catch (err) {
         console.log(err)
