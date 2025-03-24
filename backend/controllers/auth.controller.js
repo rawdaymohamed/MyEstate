@@ -42,7 +42,7 @@ export const login = async (req, res) => {
             token, {
             httpOnly: true,
             secure: isProduction,
-            sameSite: isProduction ? "None" : "lax",
+            sameSite: isProduction ? "none" : "lax",
             maxAge: age,
         }
         );
