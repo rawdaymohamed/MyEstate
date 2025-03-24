@@ -43,6 +43,7 @@ export const login = async (req, res) => {
             httpOnly: true,
             secure: isProduction,
             sameSite: isProduction ? "none" : "lax",
+            path: "/",
             // domain: 'rawdaymohamed-my-estate-backend.vercel.app',
             partitioned: true,
             maxAge: age,
