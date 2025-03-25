@@ -44,7 +44,7 @@ const EditPage = () => {
         )}
         {/* Avatar */}
         <Image
-          src={`${avatar || "/noavatar.jpg"}`}
+          src={`${avatar || currentUser?.avatar || "/noavatar.jpg"}`}
           height={100}
           width={100}
           alt="Profile Avatar"
