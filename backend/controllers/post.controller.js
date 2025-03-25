@@ -1,10 +1,19 @@
 import prisma from "../lib/prisma.js";
 
-// Get a single post by ID
 export const get = async (req, res) => {
     try {
         const post = await prisma.post.findUnique({
-            where: { id: req.params.id }
+            where: { id: req.params.id },
+            include: {
+                postDetails: true,
+                user: {
+                    select: {
+                        id: true,
+                        username: true,
+                        avatar: true,
+                    }
+                }
+            }
         });
 
         if (!post) {
@@ -13,25 +22,41 @@ export const get = async (req, res) => {
 
         return res.status(200).json({ data: post });
     } catch (error) {
+        console.error("Error fetching post:", error);
         return res.status(500).json({ message: "Failed to get post" });
     }
 };
 
-// Add a new post
-
 export const add = async (req, res) => {
     try {
-        const authenticatedUserId = req.userId; // User ID from token
-
+        const authenticatedUserId = req.userId;
+        const { postData, postDetails } = req.body;
+        if (!postData.title || !postData.price) {
+            return res.status(400).json({ message: "Title and price are required" });
+        }
+        // Create the Post
         const newPost = await prisma.post.create({
             data: {
-                ...req.body,
-                userId: authenticatedUserId // Automatically assign userId
+                ...postData,
+                userId: authenticatedUserId
             }
         });
 
-        return res.status(201).json({ data: newPost });
+        // Create the PostDetails, linking it to the newly created Post
+        const newPostDetails = await prisma.postDetails.create({
+            data: {
+                ...postDetails,
+                postId: newPost.id
+            }
+        });
+
+        return res.status(201).json({
+            post: newPost,
+            postDetails: newPostDetails
+        });
+
     } catch (error) {
+
         return res.status(500).json({ message: "Failed to add post" });
     }
 };
