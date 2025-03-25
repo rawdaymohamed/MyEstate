@@ -85,28 +85,28 @@ const Slider = ({ images }) => {
       )}
 
       {/* Normal Slider */}
-      <div className="flex flex-col gap-4 relative w-full overflow-hidden">
+      <div className="flex flex-col gap-4 relative w-full">
         {/* Big Image (Click to Open Full Screen) */}
         <div
-          className="relative w-full h-[250px] sm:h-[350px] lg:h-[400px] overflow-hidden rounded-lg cursor-pointer"
+          className="relative w-[500px] h-[300px] lg:h-[300px] overflow-hidden rounded-lg cursor-pointer"
           onClick={() => openFullScreen(images.indexOf(selectedImage))}
         >
           <Image
             src={selectedImage}
             width={600}
             height={600}
-            className="w-full h-full object-cover rounded-lg"
+            className="w-[500px] h-[300px] object-cover rounded-lg"
             alt="Selected"
           />
         </div>
 
         {/* Thumbnail Images */}
-        <div className="flex gap-2 sm:gap-3 overflow-x-scroll w-full scrollbar-hide p-2">
+        <div className="flex gap-2 sm:gap-3 overflow-x-scroll w-full scrollbar-hide p-1">
           {images.map((image, i) => (
             <button
               key={i}
               onClick={() => openFullScreen(i)}
-              className={`relative w-[70px] sm:w-[100px] h-[60px] sm:h-[80px] rounded-md overflow-hidden border-2 ${
+              className={`relative w-[80px] sm:w-[100px] h-[60px] sm:h-[80px] rounded-md overflow-hidden border-2 ${
                 selectedImage === image
                   ? "border-gray-800"
                   : "border-transparent"

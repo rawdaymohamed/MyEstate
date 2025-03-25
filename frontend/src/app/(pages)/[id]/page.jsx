@@ -30,7 +30,7 @@ const page = () => {
   const [selectedLocationId, setSelectedLocationId] = useState(null);
 
   return (
-    <div className="pt-[10vh] w-[100%] md:w-[85%] lg:w-[80%] xl:w-[70%] mx-auto h-auto pb-10">
+    <div className="pt-[10vh] w-[100%] md:w-[85%] lg:w-[80%] xl:w-[70%] mx-auto h-auto pb-10 flex">
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 h-full">
         <div className="h-full lg:col-span-3 p-6 overflow-y-auto">
           <Slider images={singlePostData.images} />
@@ -64,7 +64,7 @@ const page = () => {
             </p>
           </div>
         </div>
-        <div className="h-full xl:overflow-y-auto lg:col-span-2 p-6 flex flex-col gap-8 text-gray-800">
+        <div className="h-full overflow-y-auto lg:col-span-2 p-6 flex flex-col gap-8 text-gray-800">
           <div className="flex flex-col gap-7">
             <p className="font-bold">General</p>
             <div className="flex flex-col gap-5 text-sm">
@@ -110,7 +110,7 @@ const page = () => {
               </div>
             </div>
             <div className="flex flex-col gap-5">
-              <p className="font-bold">Sizes</p>s{" "}
+              <p className="font-bold">Sizes</p>
               <div className="grid grid-cols-2 gap-4  text-sm md:text-md">
                 <div className="flex items-center gap-2">
                   <MdSquareFoot className="text-gray-500 size-5" />
@@ -127,19 +127,19 @@ const page = () => {
               </div>
             </div>
           </div>
-          <div className="h-40 sm:h-48 z-10">
+          <div className="h-64 sm:h-48 z-10">
             <Map
               locations={[singlePostData]}
               mapRef={mapRef}
               selectedLocationId={selectedLocationId}
             />
           </div>
-          <div className="flex flex-col sm:flex-row justify-between gap-4">
-            <button className="flex gap-2 items-center bg-white p-2 rounded-full shadow-md hover:bg-gray-200 transition cursor-pointer">
+          <div className="flex flex-col md:flex-row  gap-4">
+            <button className="flex gap-2 items-center bg-white py-2 px-4 rounded-full shadow-md hover:bg-gray-200 transition cursor-pointer">
               <FaHeart className="text-gray-500" />
               <p>Save</p>
             </button>
-            <button className="flex gap-2 items-center bg-white p-2 rounded-full shadow-md hover:bg-gray-200 transition cursor-pointer">
+            <button className="flex gap-2 items-center bg-white py-2 px-4 rounded-full shadow-md hover:bg-gray-200 transition cursor-pointer">
               <FaCommentDots className="text-gray-500" />
               <p>Message</p>
             </button>
