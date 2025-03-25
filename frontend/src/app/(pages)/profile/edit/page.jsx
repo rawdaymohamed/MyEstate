@@ -5,25 +5,34 @@ import { apiRequest } from "@/app/lib/apiRequest";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
-// const cloudinaryURL = process.env.CLOUDINARY_URL;
+
 const EditPage = () => {
   const [error, setError] = useState("");
   const { currentUser, setCurrentUser } = useContext(AuthContext);
-  const [avatar, setAvatar] = useState(currentUser?.avatar);
-
+  const [avatarFile, setAvatarFile] = useState(null);
   const router = useRouter();
+
   const handleEdit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const { username, email, password } = Object.fromEntries(formData);
+
+    // Append image file if available
+    if (avatarFile) {
+      formData.append("avatar", avatarFile);
+    }
+
     try {
-      const response = await apiRequest.put(`/users/${currentUser.id}`, {
-        username,
-        email,
-        password,
-        avatar,
-      });
-      console.log(response.data);
+      const response = await apiRequest.put(
+        `/users/${currentUser.id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
       setCurrentUser(response.data.data);
       router.push("/profile");
     } catch (err) {
@@ -32,25 +41,31 @@ const EditPage = () => {
       );
     }
   };
+
   return (
     <div className="h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-sm sm:max-w-md bg-white shadow-xl rounded-lg p-6 sm:p-8 flex flex-col items-center">
-        {/* Title inside the card */}
         <h1 className="text-gray-800 text-2xl font-bold text-center mb-5">
           Edit Profile
         </h1>
         {error && (
           <span className="text-red-500 text-sm text-center">{error}</span>
         )}
+
         {/* Avatar */}
         <Image
-          src={`${avatar || currentUser?.avatar || "/noavatar.jpg"}`}
+          src={
+            avatarFile
+              ? URL.createObjectURL(avatarFile)
+              : currentUser?.avatar || "/noavatar.jpg"
+          }
           height={100}
           width={100}
           alt="Profile Avatar"
           className="object-cover h-24 w-24 sm:h-28 sm:w-28 rounded-full border-4 border-gray-300"
         />
-        <UploadImage setAvatar={setAvatar} />
+        <UploadImage setAvatarFile={setAvatarFile} />
+
         {/* Form */}
         <form className="flex flex-col gap-5 w-full mt-5" onSubmit={handleEdit}>
           <div className="flex flex-col">

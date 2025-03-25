@@ -1,27 +1,30 @@
 "use client";
 import React from "react";
-import { CldUploadWidget } from "next-cloudinary";
 
-const UploadImage = ({ setAvatar }) => {
+const UploadImage = ({ setAvatarFile }) => {
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setAvatarFile(file);
+    }
+  };
+
   return (
-    <CldUploadWidget
-      uploadPreset="cloudinary"
-      onSuccess={(result) => {
-        if (result.info && result.info.secure_url) {
-          setAvatar(result.info.secure_url); // Save the uploaded image URL
-        }
-      }}
-    >
-      {({ open }) => (
-        <button
-          type="button"
-          onClick={() => open()} // Ensure open() is called correctly
-          className="mt-3 bg-blue-500 text-white px-4 py-2 rounded-md"
-        >
-          Upload Image
-        </button>
-      )}
-    </CldUploadWidget>
+    <div className="mt-3">
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        className="hidden"
+        id="fileInput"
+      />
+      <label
+        htmlFor="fileInput"
+        className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-md"
+      >
+        Upload Image
+      </label>
+    </div>
   );
 };
 
