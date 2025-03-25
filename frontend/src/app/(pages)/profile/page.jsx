@@ -65,9 +65,17 @@ const Page = () => {
 
         {/* My List */}
         <div className="flex flex-col gap-6 w-full flex-1">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-            My List
-          </h2>
+          <div className="flex justify-between">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+              My List
+            </h2>
+            <Link
+              href="/newPost"
+              className="cursor-pointer bg-gradient-to-r from-amber-500 to-amber-600 text-white px-5 py-2 md:px-6 md:py-3 rounded-lg shadow-md hover:scale-105 transition-transform"
+            >
+              New Post
+            </Link>
+          </div>
           <div className="w-full min-h-[200px]">
             <List />
           </div>
