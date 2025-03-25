@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt"
 import prisma from "../lib/prisma.js"
+
 export const get = async (req, res) => {
     try {
         const user = await prisma.user.findUnique({ where: { id: req.params.id } })
@@ -13,7 +14,6 @@ export const edit = async (req, res) => {
         const userId = req.params.id;
         const { password, avatar, ...inputs } = req.body;
         let updatedPassword;
-
         const authenticatedUserId = req.userId;
 
         if (userId !== authenticatedUserId) return res.status(403).json({ message: "Unauthorized" });
@@ -21,6 +21,7 @@ export const edit = async (req, res) => {
         if (password)
             updatedPassword = await bcrypt.hash(password, 12)
 
+        // const uploadResult = await cloudinary.uploader.upload(req.body.avatar);
         const updatedUser = await prisma.user.update({
             where: { id: userId },
             data: {
@@ -32,6 +33,7 @@ export const edit = async (req, res) => {
                 id: true,
                 username: true,
                 email: true,
+                avatar: true
             }
         });
         return res.status(200).json({ data: updatedUser });

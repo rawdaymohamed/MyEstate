@@ -1,13 +1,16 @@
 "use client";
+import UploadImage from "@/app/components/UploadImage/UploadImage";
 import { AuthContext } from "@/app/context/AuthContext";
 import { apiRequest } from "@/app/lib/apiRequest";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
-
+// const cloudinaryURL = process.env.CLOUDINARY_URL;
 const EditPage = () => {
   const [error, setError] = useState("");
   const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const [avatar, setAvatar] = useState(currentUser?.avatar);
+
   const router = useRouter();
   const handleEdit = async (e) => {
     e.preventDefault();
@@ -18,7 +21,9 @@ const EditPage = () => {
         username,
         email,
         password,
+        avatar,
       });
+      console.log(response.data);
       setCurrentUser(response.data.data);
       router.push("/profile");
     } catch (err) {
@@ -39,13 +44,13 @@ const EditPage = () => {
         )}
         {/* Avatar */}
         <Image
-          src={`${currentUser?.avatar || "/noavatar.jpg"}`}
+          src={`${avatar || "/noavatar.jpg"}`}
           height={100}
           width={100}
           alt="Profile Avatar"
           className="object-cover h-24 w-24 sm:h-28 sm:w-28 rounded-full border-4 border-gray-300"
         />
-
+        <UploadImage setAvatar={setAvatar} />
         {/* Form */}
         <form className="flex flex-col gap-5 w-full mt-5" onSubmit={handleEdit}>
           <div className="flex flex-col">
