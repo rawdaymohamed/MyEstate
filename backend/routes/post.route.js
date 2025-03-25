@@ -1,3 +1,10 @@
 import { Router } from "express";
+import { verifyToken } from "../middlewares/verifyToken.js";
+import { add, get, getAll, remove } from "../controllers/post.controller.js";
 const router = Router();
+router.get("/:id", verifyToken, get);
+// router.put("/:id", verifyToken, uploadMiddleware, edit);
+router.delete("/:id", verifyToken, remove);
+router.post("", verifyToken, add);
+router.get("/", getAll);
 export default router;
