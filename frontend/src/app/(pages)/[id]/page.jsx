@@ -134,7 +134,7 @@ const page = () => {
               selectedLocationId={selectedLocationId}
             />
           </div>
-          <div className="flex flex-col md:flex-row  gap-4">
+          <div className="flex flex-col md:flex-row gap-4">
             <button className="flex gap-2 items-center bg-white py-2 px-4 rounded-full shadow-md hover:bg-gray-200 transition cursor-pointer">
               <FaHeart className="text-gray-500" />
               <p>Save</p>

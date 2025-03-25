@@ -101,7 +101,7 @@ const Slider = ({ images }) => {
         </div>
 
         {/* Thumbnail Images */}
-        <div className="flex gap-2 sm:gap-3 overflow-x-scroll w-full scrollbar-hide p-1">
+        <div className="flex gap-2 sm:gap-3 overflow-x-scroll w-full scrollbar-hide">
           {images.map((image, i) => (
             <button
               key={i}
