@@ -10,10 +10,11 @@ import {
   FaLocationDot,
   FaSchool,
 } from "react-icons/fa6";
+import { FaTools, FaDollarSign } from "react-icons/fa";
 import { IoMdRestaurant } from "react-icons/io";
-import { FaTools } from "react-icons/fa";
 import { MdPets } from "react-icons/md";
 import dynamic from "next/dynamic";
+
 const page = () => {
   const Map = useMemo(
     () =>
@@ -27,7 +28,7 @@ const page = () => {
   const [selectedLocationId, setSelectedLocationId] = useState(null);
 
   return (
-    <div className="pt-[10vh] w-[100%]  md:w-[85%] lg:w-[80%] xl:w-[70%] mx-auto h-auto pb-10">
+    <div className="pt-[10vh] w-[100%] md:w-[85%] lg:w-[80%] xl:w-[70%] mx-auto h-auto pb-10">
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 h-full">
         <div className="h-full lg:col-span-3 p-6 overflow-y-auto">
           <Slider images={singlePostData.images} />
@@ -77,6 +78,15 @@ const page = () => {
                 <div>
                   <span className="font-bold">Pet Policy</span>
                   <p className="font-light">Pets allowed</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <FaDollarSign className="text-gray-500 size-5" />
+                <div>
+                  <span className="font-bold">Property Fees</span>
+                  <p className="font-light">
+                    Must have income 3x the total household income
+                  </p>
                 </div>
               </div>
             </div>
