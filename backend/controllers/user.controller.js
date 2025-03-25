@@ -1,28 +1,21 @@
 import bcrypt from "bcrypt"
-import prisma from "../lib/prisma.js"
-import { v2 as cloudinary } from "cloudinary";
-import dotenv from "dotenv"
-import multer from "multer";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
-import fs from "fs";
-dotenv.config()
-// Configure Cloudinary
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 
-// Configure multer storage for Cloudinary
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import prisma from "../lib/prisma.js";
+import cloudinary from "../lib/cloudinaryConfig.js"; // Import Cloudinary config
+import multer from "multer";
+import fs from "fs";
+
+// Configure Cloudinary storage
 const storage = new CloudinaryStorage({
     cloudinary,
     params: {
-        folder: "user_avatars", // Save in a specific Cloudinary folder
+        folder: "user_avatars",
         allowed_formats: ["jpg", "png", "jpeg"],
     },
 });
 
-// Configure multer for local file storage before Cloudinary upload
+// Configure multer for local storage
 const upload = multer({ dest: "uploads/" });
 
 export const edit = async (req, res) => {
@@ -51,7 +44,6 @@ export const edit = async (req, res) => {
             });
 
             avatarUrl = uploadResult.secure_url;
-            // console.log(uploadResult)
             // Delete the locally stored image after upload
             fs.unlinkSync(req.file.path);
         }
@@ -79,9 +71,7 @@ export const edit = async (req, res) => {
 };
 
 // Multer middleware for handling file uploads
-
 export const uploadMiddleware = upload.single("avatar");
-
 export const get = async (req, res) => {
     try {
         const user = await prisma.user.findUnique({ where: { id: req.params.id } })
