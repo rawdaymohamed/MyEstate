@@ -4,6 +4,8 @@ import Image from "next/image";
 import Slider from "@/app/components/Slider/Slider";
 import { singlePostData, userData } from "@/app/lib/dummyData";
 import {
+  FaBath,
+  FaBed,
   FaBus,
   FaCommentDots,
   FaHeart,
@@ -12,7 +14,7 @@ import {
 } from "react-icons/fa6";
 import { FaTools, FaDollarSign } from "react-icons/fa";
 import { IoMdRestaurant } from "react-icons/io";
-import { MdPets } from "react-icons/md";
+import { MdPets, MdSquareFoot } from "react-icons/md";
 import dynamic from "next/dynamic";
 
 const page = () => {
@@ -93,7 +95,7 @@ const page = () => {
           </div>
           <div className="flex flex-col gap-5">
             <p className="font-bold">Nearby Places</p>
-            <div className="grid grid-cols-2 gap-4 text-xs sm:text-sm">
+            <div className="grid grid-cols-2 gap-4 text-sm md:text-md">
               <div className="flex items-center gap-2">
                 <FaSchool className="text-gray-500 size-5" />
                 <span>School - 250m</span>
@@ -105,6 +107,23 @@ const page = () => {
               <div className="flex items-center gap-2">
                 <IoMdRestaurant className="text-gray-500 size-5" />
                 <span>Restaurants - 200m</span>
+              </div>
+            </div>
+            <div className="flex flex-col gap-5">
+              <p className="font-bold">Sizes</p>s{" "}
+              <div className="grid grid-cols-2 gap-4  text-sm md:text-md">
+                <div className="flex items-center gap-2">
+                  <MdSquareFoot className="text-gray-500 size-5" />
+                  <span>80 sqft</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <FaBed className="text-gray-500 size-5" />
+                  <span>2 Bedrooms</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <FaBath className="text-gray-500 size-5" />
+                  <span>1 Bathroom</span>
+                </div>
               </div>
             </div>
           </div>
