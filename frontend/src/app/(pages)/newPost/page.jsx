@@ -1,39 +1,91 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
+import { apiRequest } from "@/app/lib/apiRequest";
 
 const AddPostForm = () => {
   const [formData, setFormData] = useState({
+    title: "",
     price: "",
+    address: "",
     bedrooms: "",
     bathrooms: "",
-    totalSize: "",
-    nearbySchools: "",
-    nearbyBusStops: "",
-    nearbyRestaurants: "",
+    latitude: "",
+    longitude: "",
+    type: "buy",
+    property: "apartment",
+    description: "",
+    utilities: "",
+    pet: "",
+    income: "",
+    size: "",
+    schools: "",
+    restaurant: "",
   });
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (value === "" || parseFloat(value) >= 0) {
-      setFormData({ ...formData, [name]: value });
+    const { name, value, type } = e.target;
+
+    let newValue = value;
+    if (type === "number") {
+      newValue = value === "" ? "" : Math.max(0, Number(value));
+    }
+
+    setFormData({ ...formData, [name]: newValue });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const postData = {
+        title: formData.title,
+        price: Number(formData.price),
+        address: formData.address,
+        bedrooms: Number(formData.bedrooms),
+        bathrooms: Number(formData.bathrooms),
+        latitude: formData.latitude,
+        longitude: formData.longitude,
+        type: formData.type,
+        property: formData.property,
+      };
+
+      const postDetails = {
+        description: formData.description,
+        utilities: formData.utilities || null,
+        pet: formData.pet || null,
+        income: formData.income || null,
+        size: formData.size ? Number(formData.size) : null,
+        schools: formData.schools ? Number(formData.schools) : null,
+        restaurant: formData.restaurant ? Number(formData.restaurant) : null,
+      };
+
+      const res = await apiRequest.post("/posts", { postData, postDetails });
+      console.log(res.data);
+    } catch (error) {
+      setError(
+        error.response?.data?.message ||
+          "Failed to submit post. Please try again."
+      );
     }
   };
 
   return (
     <div className="pt-[5vh] md:pt-[12vh] w-[95%] lg:w-[80%] xl:w-[70%] mx-auto h-auto pb-10">
-      <h1 className="text-2xl font-bold my-6 text-center">New Post</h1>
-      <form className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 rounded-lg shadow-lg">
+      <h1 className="text-2xl font-bold mb-6">New Post</h1>
+      {error && <span className="text-red-500 text-sm">{error}</span>}
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 rounded-lg shadow-lg"
+      >
         <input
           type="text"
+          name="title"
+          value={formData.title}
+          onChange={handleChange}
           placeholder="Title"
-          className="md:col-span-2 border border-gray-300 rounded-md p-3"
+          className="border border-gray-300 rounded-md p-3"
           required
         />
-        <textarea
-          placeholder="Description"
-          className="md:col-span-2 border border-gray-300 rounded-md p-3"
-          required
-        ></textarea>
         <input
           type="number"
           name="price"
@@ -45,6 +97,9 @@ const AddPostForm = () => {
         />
         <input
           type="text"
+          name="address"
+          value={formData.address}
+          onChange={handleChange}
           placeholder="Address"
           className="border border-gray-300 rounded-md p-3"
           required
@@ -69,71 +124,97 @@ const AddPostForm = () => {
         />
         <input
           type="text"
+          name="latitude"
+          value={formData.latitude}
+          onChange={handleChange}
           placeholder="Latitude"
           className="border border-gray-300 rounded-md p-3"
           required
         />
         <input
           type="text"
+          name="longitude"
+          value={formData.longitude}
+          onChange={handleChange}
           placeholder="Longitude"
           className="border border-gray-300 rounded-md p-3"
           required
         />
-        <select className="border border-gray-300 rounded-md p-3" required>
+        <select
+          name="type"
+          value={formData.type}
+          onChange={handleChange}
+          className="border border-gray-300 rounded-md p-3"
+          required
+        >
           <option value="buy">Buy</option>
           <option value="rent">Rent</option>
         </select>
-        <select className="border border-gray-300 rounded-md p-3" required>
+        <select
+          name="property"
+          value={formData.property}
+          onChange={handleChange}
+          className="border border-gray-300 rounded-md p-3"
+          required
+        >
           <option value="apartment">Apartment</option>
           <option value="house">House</option>
           <option value="condo">Condo</option>
         </select>
-
+        <textarea
+          name="description"
+          value={formData.description}
+          onChange={handleChange}
+          placeholder="Description"
+          className="border border-gray-300 rounded-md p-3"
+          required
+        ></textarea>
         <input
           type="text"
+          name="utilities"
+          value={formData.utilities}
+          onChange={handleChange}
           placeholder="Utilities"
           className="border border-gray-300 rounded-md p-3"
         />
         <input
           type="text"
-          placeholder="Pet Policy"
+          name="pet"
+          value={formData.pet}
+          onChange={handleChange}
+          placeholder="Pet"
           className="border border-gray-300 rounded-md p-3"
         />
         <input
           type="text"
-          placeholder="Income Policy"
+          name="income"
+          value={formData.income}
+          onChange={handleChange}
+          placeholder="Income"
           className="border border-gray-300 rounded-md p-3"
         />
         <input
           type="number"
-          name="totalSize"
-          value={formData.totalSize}
+          name="size"
+          value={formData.size}
           onChange={handleChange}
-          placeholder="Total Size (sqft)"
+          placeholder="Size"
           className="border border-gray-300 rounded-md p-3"
         />
         <input
           type="number"
-          name="nearbySchools"
-          value={formData.nearbySchools}
+          name="schools"
+          value={formData.schools}
           onChange={handleChange}
-          placeholder="Nearby Schools"
+          placeholder="Schools"
           className="border border-gray-300 rounded-md p-3"
         />
         <input
           type="number"
-          name="nearbyBusStops"
-          value={formData.nearbyBusStops}
+          name="restaurant"
+          value={formData.restaurant}
           onChange={handleChange}
-          placeholder="Nearby Bus Stops"
-          className="border border-gray-300 rounded-md p-3"
-        />
-        <input
-          type="number"
-          name="nearbyRestaurants"
-          value={formData.nearbyRestaurants}
-          onChange={handleChange}
-          placeholder="Nearby Restaurants"
+          placeholder="restaurant"
           className="border border-gray-300 rounded-md p-3"
         />
         <button
