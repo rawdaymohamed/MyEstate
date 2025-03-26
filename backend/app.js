@@ -4,12 +4,7 @@ import postRoutes from "./routes/post.route.js";
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
-
-// import { v2 as cloudinary } from "cloudinary";
-import multer from "multer";
-// import { CloudinaryStorage } from "multer-storage-cloudinary";
 import cors from "cors";
-// import { v2 as cloudinary } from 'cloudinary';
 const port = process.env.PORT || 4000;
 
 dotenv.config()
@@ -22,26 +17,10 @@ app.use(cookieParser());
 app.use("/api/test", (req, res) => {
     return res.send("It works");
 })
-// cloudinary.config({
-//     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-//     api_key: process.env.CLOUDINARY_API_KEY,
-//     api_secret: process.env.CLIENT_API_SECRET // Click 'View API Keys' above to copy your API secret
-// });
-// const storage = new CloudinaryStorage({
-//     cloudinary,
-//     params: {
-//         folder: "user_avatars", // Save in a specific Cloudinary folder
-//         allowed_formats: ["jpg", "png", "jpeg"],
-//     },
-// });
 app.use(express.json());
 app.use("/api/posts", postRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
-
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }))
-// router.post("api/:id/upload-image", verifyToken, uploadProfileImg);
 
 app.use("/", (req, res) => {
     return res.send("It works");
