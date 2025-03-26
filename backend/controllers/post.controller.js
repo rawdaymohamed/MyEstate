@@ -1,5 +1,7 @@
 import prisma from "../lib/prisma.js";
-// get post
+
+// Get post
+
 export const get = async (req, res) => {
     try {
         const post = await prisma.post.findUnique({
