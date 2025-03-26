@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt"
 
 // import { CloudinaryStorage } from "multer-storage-cloudinary";
-// import prisma from "../lib/prisma.js";
+import prisma from "../lib/prisma.js";
 // import cloudinary from "../lib/cloudinaryConfig.js"; // Import Cloudinary config
 // import multer from "multer";
 // import fs from "fs";
