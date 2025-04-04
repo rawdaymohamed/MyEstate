@@ -41,11 +41,11 @@ export const login = async (req, res) => {
         return res.cookie(
             "token",
             token, {
-            // httpOnly: true,
+            httpOnly: true,
             secure: isProduction,
-            sameSite: isProduction ? "none" : "lax",
-            path: "/",
-            domain: isProduction ? 'myestate.vercel.app' : "localhost:4000",
+            sameSite: isProduction ? "None" : "Lax",
+            // path: "/",
+            // domain: isProduction ? 'myestate.vercel.app' : "localhost:4000",
             // partitioned: isProduction,
             maxAge: age,
         }
