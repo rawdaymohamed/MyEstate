@@ -6,26 +6,33 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [token, setToken] = useState(null);
-  const [loading, setLoading] = useState(true); // Add loading state
+
+  // Check for client-side rendering (CSR) to ensure this only runs on the client
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true); // Set state to true once the component is mounted on the client
+  }, []);
 
   // On initial load, retrieve the token and user data from localStorage
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    const storedUser = localStorage.getItem("user");
+    if (isClient) {
+      // Only run this after the component has mounted on the client
+      const storedToken = localStorage.getItem("token");
+      const storedUser = localStorage.getItem("user");
 
-    if (storedToken && storedUser) {
-      try {
-        setToken(storedToken);
-        setCurrentUser(JSON.parse(storedUser));
-      } catch (error) {
-        console.error("Error parsing user data from localStorage:", error);
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
+      if (storedToken && storedUser) {
+        try {
+          setToken(storedToken);
+          setCurrentUser(JSON.parse(storedUser));
+        } catch (error) {
+          console.error("Error parsing user data from localStorage:", error);
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+        }
       }
     }
-
-    setLoading(false); // Set loading to false once data is fetched
-  }, []);
+  }, [isClient]); // Only execute this once the component has mounted on the client
 
   // Whenever the currentUser or token changes, update localStorage
   useEffect(() => {
@@ -38,9 +45,9 @@ export const AuthProvider = ({ children }) => {
     }
   }, [currentUser, token]);
 
-  // Render loading state until user and token are set
-  if (loading) {
-    return <div>Loading...</div>; // Or a spinner/loading component
+  // Don't render anything while waiting for CSR
+  if (!isClient) {
+    return null;
   }
 
   return (
