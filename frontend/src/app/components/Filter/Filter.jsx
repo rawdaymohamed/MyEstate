@@ -26,7 +26,7 @@ const Filter = () => {
         </div>
 
         {/* Filters Row */}
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {/* Type */}
           <div className="flex flex-col">
             <label className="text-sm font-medium mb-1" htmlFor="type">

@@ -32,7 +32,7 @@ const Page = () => {
       </div>
 
       {/* Map Container */}
-      <div className="lg:flex-[2] h-full  rounded-xl flex items-center justify-center">
+      <div className="lg:flex-[2] h-full rounded-xl flex items-center justify-center">
         <Map
           locations={listData}
           mapRef={mapRef}
