@@ -9,7 +9,7 @@ const MyHome = () => {
   return (
     <div className="w-[90%] lg:w-[80%] xl:w-[70%] mx-auto flex flex-col lg:flex-row h-screen">
       {/* Text container */}
-      <div className="flex-1 max-w-2xl mx-auto flex flex-col gap-6 p-6 md:p-10 justify-center">
+      <div className="flex-1 max-w-2xl mx-auto flex flex-col gap-6 p-6 md:p-10 justify-center mt-5">
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mt-5">
           Find Your Perfect Home, Effortlessly.
         </h1>

@@ -41,7 +41,7 @@ const Searchbar = () => {
       </div>
 
       {/* Search Form */}
-      <form className="flex flex-col md:flex-row gap-4">
+      <form className="flex flex-col md:flex-row gap-2 text-sm">
         <input
           type="text"
           name="location"
