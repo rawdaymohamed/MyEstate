@@ -45,7 +45,7 @@ export const login = async (req, res) => {
             secure: isProduction,
             sameSite: isProduction ? "none" : "lax",
             path: "/",
-            // domain: isProduction ? 'rawdaymohamed-my-estate.vercel.app' : "localhost:4000",
+            domain: isProduction ? 'myestate.vercel.app' : "localhost:4000",
             // partitioned: isProduction,
             maxAge: age,
         }
