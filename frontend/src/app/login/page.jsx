@@ -18,19 +18,19 @@ const Login = () => {
     const username = formData.get("username");
     const password = formData.get("password");
     try {
-      const res = await apiRequest.post("/auth/login", {
+      const response = await apiRequest.post("/auth/login", {
         username,
         password,
       });
-      setCurrentUser(res.data?.data);
-      setError("");
-      router.push("/");
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data.userInfo));
+        router.push("/");
+      } else {
+        console.log("Login failed: No token received");
+      }
     } catch (error) {
-      setError(
-        error.response?.data?.message || "Login failed. Please try again."
-      );
-    } finally {
-      setIsLoading(false);
+      console.error("Login error:", error);
     }
   };
   return (

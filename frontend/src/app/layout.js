@@ -30,7 +30,8 @@ export default function RootLayout({ children }) {
           <div className="h-screen flex flex-col">
             <ResponsiveNav />
             {children}
-          </div></AuthProvider>
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );

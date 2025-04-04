@@ -1,11 +1,12 @@
+"use client";
 import React, { useContext } from "react";
 import Navbar from "./Navbar";
 import MobileNav from "./MobileNav";
 import { AuthContext } from "@/app/context/AuthContext";
 
 const ResponsiveNav = () => {
-  const user = false;
   let { currentUser } = useContext(AuthContext);
+
   return (
     <div>
       <div className="hidden lg:block">

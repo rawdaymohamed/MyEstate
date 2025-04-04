@@ -6,7 +6,6 @@ import { AuthContext } from "@/app/context/AuthContext";
 
 const MyHome = () => {
   const { currentUser } = useContext(AuthContext);
-  console.log(currentUser);
   return (
     <div className="w-[90%] lg:w-[80%] xl:w-[70%] mx-auto flex flex-col lg:flex-row h-screen">
       {/* Text container */}

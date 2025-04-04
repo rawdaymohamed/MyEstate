@@ -19,6 +19,7 @@ export const register = async (req, res) => {
         return res.status(500).json({ message: "Failed to create user" })
     }
 }
+
 export const login = async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -31,31 +32,19 @@ export const login = async (req, res) => {
         const isValidPassword = await bcrypt.compare(password, user.password);
         if (!isValidPassword) return res.status(401).json({ message: "Invalid credentials" });
 
-        // Generate a cookie tooken
+        // Generate a JWT token
         const age = 1000 * 60 * 60 * 24 * 7; // 7 days
-
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: age });
         const { password: password_, ...userInfo } = user;
-        const isProduction = process.env.NODE_ENV === "production";
 
-        return res.cookie(
-            "token",
-            token, {
-            httpOnly: true,
-            secure: isProduction,
-            sameSite: isProduction ? "None" : "Lax",
-            // path: "/",
-            // domain: isProduction ? 'myestate.vercel.app' : "localhost:4000",
-            // partitioned: isProduction,
-            maxAge: age,
-        }
-        ).json({ message: "Login successful", data: userInfo });
-
+        // Send the token as part of the response
+        return res.json({ message: "Login successful", token, userInfo });
     } catch (err) {
-        console.log(err)
-        return res.status(500).json({ message: "Failed to login" })
+        console.log(err);
+        return res.status(500).json({ message: "Failed to login" });
     }
-}
+};
+
 export const logout = (req, res) => {
     return res.clearCookie("token").status(200).json({ message: "You logged out successfully" });
 }
