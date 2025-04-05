@@ -41,7 +41,7 @@ const Searchbar = () => {
       </div>
 
       {/* Search Form */}
-      <form className="flex flex-col md:flex-row gap-2 text-sm">
+      <form className="flex flex-col gap-4">
         <input
           type="text"
           name="location"
@@ -54,7 +54,7 @@ const Searchbar = () => {
           max={10000000}
           name="minPrice"
           placeholder="Min Price"
-          className="w-full md:w-1/4 px-4 py-2 border border-gray-300 rounded-lg focus:border-amber-400 focus:ring-0 outline-none transition-all"
+          className="w-full  px-4 py-2 border border-gray-300 rounded-lg focus:border-amber-400 focus:ring-0 outline-none transition-all"
         />
         <input
           type="number"
@@ -62,13 +62,14 @@ const Searchbar = () => {
           max={10000000}
           name="maxPrice"
           placeholder="Max Price"
-          className="w-full md:w-1/4 px-4 py-2 border border-gray-300 rounded-lg focus:border-amber-400 focus:ring-0 outline-none transition-all"
+          className="w-full  px-4 py-2 border border-gray-300 rounded-lg focus:border-amber-400 focus:ring-0 outline-none transition-all"
         />
         <button
           onClick={handleSearch}
-          className="cursor-pointer bg-amber-400 text-white px-6 py-2 rounded-lg flex items-center justify-center hover:shadow-lg transition-all"
+          className="cursor-pointer bg-amber-400 text-white px-6 py-2 rounded-lg flex items-center justify-center hover:shadow-lg transition-all h-[42px] gap-2"
         >
           <FaSearch />
+          Search
         </button>
       </form>
     </div>
