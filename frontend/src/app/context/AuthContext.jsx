@@ -7,48 +7,39 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [token, setToken] = useState(null);
 
-  // Check for client-side rendering (CSR) to ensure this only runs on the client
-  const [isClient, setIsClient] = useState(false);
-
+  // Use effect to only access localStorage on the client-side
   useEffect(() => {
-    setIsClient(true); // Set state to true once the component is mounted on the client
-  }, []);
-
-  // On initial load, retrieve the token and user data from localStorage
-  useEffect(() => {
-    if (isClient) {
-      // Only run this after the component has mounted on the client
-      const storedToken = localStorage.getItem("token");
+    if (typeof window !== "undefined") {
       const storedUser = localStorage.getItem("user");
+      const storedToken = localStorage.getItem("token");
 
-      if (storedToken && storedUser) {
-        try {
-          setToken(storedToken);
-          setCurrentUser(JSON.parse(storedUser));
-        } catch (error) {
-          console.error("Error parsing user data from localStorage:", error);
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-        }
+      if (storedUser) {
+        setCurrentUser(JSON.parse(storedUser));
+      }
+      if (storedToken) {
+        setToken(storedToken);
       }
     }
-  }, [isClient]); // Only execute this once the component has mounted on the client
+  }, []); // Runs only on the client-side after initial render
 
-  // Whenever the currentUser or token changes, update localStorage
   useEffect(() => {
-    if (token && currentUser) {
-      localStorage.setItem("token", token); // Store token in localStorage
-      localStorage.setItem("user", JSON.stringify(currentUser)); // Store user data in localStorage
-    } else {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
+    if (typeof window !== "undefined") {
+      // Only try to set items in localStorage if we're on the client
+      if (token && currentUser) {
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(currentUser));
+      } else {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+      }
     }
-  }, [currentUser, token]);
+  }, [token, currentUser]);
 
-  // Don't render anything while waiting for CSR
-  if (!isClient) {
-    return null;
-  }
+  // Debugging logs
+  useEffect(() => {
+    console.log("CurrentUser:", currentUser);
+    console.log("Token:", token);
+  }, [currentUser, token]);
 
   return (
     <AuthContext.Provider

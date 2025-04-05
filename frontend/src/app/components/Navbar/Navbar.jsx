@@ -8,7 +8,7 @@ const Nav = ({ user }) => {
   return (
     <div
       className={`fixed top-0 left-0 w-full h-[10vh] transition-all duration-200 
-       shadow-xl bg-white z-50 `}
+       shadow-xl bg-white z-[888] `}
     >
       <div className="flex items-center h-full">
         <nav className="w-[90%] lg:w-[80%] xl:w-[70%] mx-auto flex justify-between items-center">
