@@ -5,7 +5,7 @@ import React from "react";
 const LocationCard = ({ location }) => {
   return (
     <Link
-      href={`/${location.id}`}
+      href={`/list/${location.id}`}
       className="flex items-center gap-4 bg-white rounded-lg shadow-md cursor-pointer hover:bg-gray-100 transition-all p-3 w-64"
       aria-label={`View details for ${location.title}`}
     >
