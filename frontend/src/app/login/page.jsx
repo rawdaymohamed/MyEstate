@@ -48,7 +48,7 @@ const Login = () => {
         router.push("/");
       } else {
         console.log("Login failed: No token or user info received");
-        setError("Login failed. Please try again.");
+        setError(response?.data?.message);
       }
     } catch (error) {
       console.error("Login error:", error);
