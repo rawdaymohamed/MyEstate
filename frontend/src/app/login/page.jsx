@@ -52,7 +52,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error("Login error:", error);
-      setError("An error occurred during login.");
+      setError(response?.data?.message);
     } finally {
       setIsLoading(false);
     }
