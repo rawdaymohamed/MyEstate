@@ -19,6 +19,7 @@ const Login = () => {
     console.log("token:", token);
   }, [currentUser, token]);
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -48,11 +49,11 @@ const Login = () => {
         router.push("/");
       } else {
         console.log("Login failed: No token or user info received");
-        setError(response?.data?.message);
+        setError(response?.data?.message || "Login failed");
       }
     } catch (error) {
       console.error("Login error:", error);
-      setError(response?.data?.message);
+      setError(error?.response?.data?.message || "An error occurred during login");
     } finally {
       setIsLoading(false);
     }
