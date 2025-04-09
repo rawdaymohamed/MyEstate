@@ -1,11 +1,11 @@
 {
   "builds": [
-    {
-      "src": "frontend/package.json",
-      "use": "@vercel/next"
+    { 
+      "src": "frontend/package.json", 
+      "use": "@vercel/next" 
     },
-    {
-      "src": "backend/index.js",
+    { 
+      "src": "backend/index.js", 
       "use": "@vercel/node",
       "config": {
         "buildCommand": "npm run build"
@@ -13,9 +13,7 @@
     }
   ],
   "routes": [
-
     { "src": "/api/(.*)", "dest": "/backend/index.js" },
-
-    { "src": "/(.*)", "dest": "/frontend" }
+    { "src": "/(.*)", "dest": "/frontend/$1" }
   ]
 }
