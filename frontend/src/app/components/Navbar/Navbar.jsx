@@ -1,7 +1,7 @@
 "use client";
+import React from "react";
 import { menuItems } from "@/app/lib/constants";
 import Link from "next/link";
-import React from "react";
 import UserProfile from "./UserProfile";
 
 const Nav = ({ user }) => {
