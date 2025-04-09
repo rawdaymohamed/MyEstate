@@ -1,16 +1,12 @@
 {
   "builds": [
-    
-    { 
-      "src": "backend/index.js", 
+    {
+      "src": "backend/index.js",
       "use": "@vercel/node",
       "config": {
         "buildCommand": "npm run build"
       }
     }
   ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/backend/index.js" },
-    
-  ]
+  "routes": [{ "src": "/api/(.*)", "dest": "/backend/index.js" }]
 }
