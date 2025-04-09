@@ -2,8 +2,7 @@ import axios from 'axios';
 
 // Create an axios instance without headers
 export const apiRequest = axios.create({
-    baseURL: `/api`,
-    // baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
+    baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
     withCredentials: true, // Ensure that credentials (cookies) are included in requests
 });
 
