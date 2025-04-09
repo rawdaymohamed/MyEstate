@@ -31,3 +31,7 @@ app.use((_err, _req, res, _next) => {
     });
 });
 app.listen(port, () => console.log("Server running on port  " + port))
+
+export default (req, res) => {
+    return app(req, res);
+};

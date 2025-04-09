@@ -4,8 +4,8 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon app.js",
-    "start": "node app.js",
+    "dev": "nodemon index.js",
+    "start": "node index.js",
     "build": "npx prisma db push && npx prisma generate"
   },
   "keywords": [],
