@@ -2,7 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     images: {
-        domains: ['res.cloudinary.com'],
+        domains: ['res.cloudinary.com', 'plus.unsplash.com'],
         // loader: 'cloudinary',
         // path: 'https://res.cloudinary.com/my-username/image/upload',
         remotePatterns: [
